@@ -1,0 +1,30 @@
+/ (repo root)
+├─ index.html
+├─ sw.js
+├─ public/
+│  ├─ manifest.webmanifest
+│  └─ bite_app_icon_512.png
+├─ style/
+│  ├─ base.css
+│  └─ theme.css
+├─ logic/
+│  ├─ main.js
+│  ├─ config.js
+│  ├─ utils.js
+│  ├─ lunar.js
+│  ├─ calculators.js
+│  ├─ prevalence.js
+│  ├─ scan.js
+│  ├─ manual.js
+│  ├─ map.js
+│  ├─ diag.js
+│  └─ weather/
+│     └─ providers.js
+├─ data/
+│  ├─ lake_species.json
+│  └─ spots.json
+└─ scripts/            ← (optional; for running locally on PC)
+   ├─ windows/
+   │  └─ start_server.bat
+   └─ mac_linux/
+      └─ start_server.sh
