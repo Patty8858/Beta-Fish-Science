@@ -1,0 +1,46 @@
+{
+  "waters": [
+    {
+      "name": "Lake Ontario – Rochester shore",
+      "lat": 43.26,
+      "lon": -77.61,
+      "prevalence": { "Bass":"G","Walleye":"F","Trout":"F","Northern Pike":"F","Muskellunge":"A","Chain Pickerel":"A","Perch":"G" }
+    },
+    {
+      "name": "Irondequoit Bay",
+      "lat": 43.22,
+      "lon": -77.54,
+      "prevalence": { "Bass":"E","Walleye":"L","Trout":"F","Northern Pike":"G","Muskellunge":"A","Chain Pickerel":"F","Perch":"G" }
+    },
+    {
+      "name": "Genesee River – lower",
+      "lat": 43.25,
+      "lon": -77.60,
+      "prevalence": { "Bass":"G","Walleye":"F","Trout":"F","Northern Pike":"F","Muskellunge":"A","Chain Pickerel":"A","Perch":"F" }
+    },
+    {
+      "name": "Conesus Lake",
+      "lat": 42.77,
+      "lon": -77.70,
+      "prevalence": { "Bass":"G","Walleye":"G","Trout":"L","Northern Pike":"F","Muskellunge":"A","Chain Pickerel":"A","Perch":"G" }
+    },
+    {
+      "name": "Honeoye Lake",
+      "lat": 42.78,
+      "lon": -77.51,
+      "prevalence": { "Bass":"E","Walleye":"L","Trout":"A","Northern Pike":"A","Muskellunge":"A","Chain Pickerel":"G","Perch":"G" }
+    },
+    {
+      "name": "Hemlock Lake",
+      "lat": 42.75,
+      "lon": -77.60,
+      "prevalence": { "Bass":"F","Walleye":"A","Trout":"G","Northern Pike":"A","Muskellunge":"A","Chain Pickerel":"A","Perch":"F" }
+    },
+    {
+      "name": "Canadice Lake",
+      "lat": 42.71,
+      "lon": -77.56,
+      "prevalence": { "Bass":"F","Walleye":"A","Trout":"G","Northern Pike":"A","Muskellunge":"A","Chain Pickerel":"A","Perch":"F" }
+    }
+  ]
+}
