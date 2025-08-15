@@ -1,0 +1,22 @@
+{
+  "spots": [
+    {
+      "name": "Ontario Beach (Pier)",
+      "water": "Lake Ontario – Rochester shore",
+      "lat": 43.2686,
+      "lon": -77.6133,
+      "type": "pier",
+      "parking": "lot",
+      "access_notes": "Work rip-rap edges and current seams early."
+    },
+    {
+      "name": "Bay Bridge South Ramp",
+      "water": "Irondequoit Bay",
+      "lat": 43.2108,
+      "lon": -77.5400,
+      "type": "boat ramp",
+      "parking": "lot",
+      "access_notes": "Weedlines hold bass/pike at first light."
+    }
+  ]
+}
