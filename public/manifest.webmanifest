@@ -1,0 +1,12 @@
+{
+  "name": "Upstate NY Fishing",
+  "short_name": "Fishing",
+  "description": "Bite likelihood forecasts, lake filters, spots map, and alerts.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0a3d1e",
+  "theme_color": "#1F5D1F",
+  "icons": [
+    { "src": "bite_app_icon_512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
