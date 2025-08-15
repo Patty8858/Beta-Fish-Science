@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Upstate NY Fishing — v4.4.1 (Modular)</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="public/manifest.webmanifest" />
+  <link rel="icon" href="public/bite_app_icon_512.png" type="image/png" />
+  <meta name="theme-color" content="#1F5D1F" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style/base.css">
+  <link rel="stylesheet" href="style/theme.css">
+
+  <!-- Leaflet (Spots Map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+</head>
+<body>
+  <header>
+    <img src="public/bite_app_icon_512.png" alt="App icon" />
+    <h1>Upstate NY Fishing — v4.4.1</h1>
+  </header>
+  <p class="tiny soft" id="ver" style="margin:8px 14px 0">loading…</p>
+
+  <nav>
+    <button id="tab-forecast" class="active" data-tab="forecast">Forecast & Alerts</button>
+    <button id="tab-manual" data-tab="manual">Manual Calculator</button>
+    <button id="tab-spots" data-tab="spots">Spots Map</button>
+  </nav>
+
+  <main>
+    <section id="forecast" class="card">
+      <div class="row" style="align-items:flex-end">
+        <div>
+          <h2>Next 24 h Bite Scan</h2>
+          <div class="pill tiny">Open-Meteo primary</div>
+          <div class="pill tiny">NOAA fallback</div>
+          <div class="pill tiny">Lunar phase + rise/set</div>
+        </div>
+
+        <div>
+          <label>Choose Lakes for Scan/Alerts</label>
+          <select id="lakeMulti" multiple size="7"></select>
+          <p class="tiny">Leave empty = All lakes</p>
+        </div>
+
+        <div>
+          <label>Bite Alert Threshold</label>
+          <input id="threshold" type="number" min="0" max="100" value="65">
+        </div>
+
+        <div>
+          <label>Species Filter (Scan)</label>
+          <select id="speciesFilter">
+            <option value="ALL" selected>All species</option>
+            <option value="Bass">Bass</option>
+            <option value="Walleye">Walleye</option>
+            <option value="Trout">Trout</option>
+            <option value="Northern Pike">Northern Pike</option>
+            <option value="Muskellunge">Muskellunge</option>
+            <option value="Chain Pickerel">Chain Pickerel</option>
+            <option value="Perch">Perch</option>
+          </select>
+        </div>
+
+        <div class="row" style="gap:8px; flex:1 1 100%">
+          <button class="btn" id="enableNotify">Enable Notifications</button>
+          <button class="btn" id="scan">Scan Next 24 h</button>
+        </div>
+      </div>
+
+      <p id="status" class="tiny soft"></p>
+      <div id="lunarLine" class="tiny"></div>
+      <div id="forecastResults" class="result"></div>
+
+      <details class="debug" id="debugPanel">
+        <summary>Show Debug Info</summary>
+        <div id="debugContent"></div>
+      </details>
+
+      <details class="debug" id="diagPanel">
+        <summary>Run Diagnostics</summary>
+        <button class="btn" id="runDiag" style="margin:8px 0">Run</button>
+        <pre id="diagOut" class="tiny" style="white-space:pre-wrap"></pre>
+      </details>
+    </section>
+
+    <section id="manual" class="card hidden">
+      <h2>Manual Bite Score</h2>
+      <div class="row">
+        <div>
+          <label>Species</label>
+          <select id="species">
+            <option>Bass</option><option>Walleye</option><option>Trout</option>
+            <option>Northern Pike</option><option>Muskellunge</option>
+            <option>Chain Pickerel</option><option>Perch</option>
+          </select>
+        </div>
+        <div>
+          <label>Waterbody</label>
+          <select id="waterbody"></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div><label>Temperature (°F)</label><input id="m_temp" type="number" placeholder="68"></div>
+        <div><label>Wind (mph)</label><input id="m_wind" type="number" placeholder="7"></div>
+        <div>
+          <label>Sky Cover</label>
+          <select id="m_sky">
+            <option>Sunny (midday)</option><option>Mixed / Partly</option>
+            <option>Overcast</option><option>Dawn/Dusk light</option><option>Night</option>
+          </select>
+        </div>
+        <div>
+          <label>Barometric Trend</label>
+          <select id="m_baro">
+            <option>Falling</option><option>Stable</option><option>Rising</option>
+          </select>
+        </div>
+        <div>
+          <label>Precipitation</label>
+          <select id="m_precip"><option>None</option><option>Light</option><option>Heavy</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Lunar Phase</label>
+          <select id="m_phase">
+            <option value="new">New</option><option value="quarter">Quarter</option>
+            <option value="full">Full</option><option value="other" selected>Other/Mixed</option>
+          </select>
+        </div>
+        <div>
+          <label>Near Moonrise/Moonset?</label>
+          <select id="m_near"><option value="no" selected>No</option><option value="yes">Yes (±60 min)</option></select>
+        </div>
+        <div>
+          <label>Time of Day</label>
+          <select id="m_tod"><option>Dawn</option><option>Dusk</option><option>Midday</option><option>Day</option><option>Night</option></select>
+        </div>
+      </div>
+
+      <button class="btn" id="m_go">Calculate</button>
+      <div id="manualResult" class="result"></div>
+    </section>
+
+    <section id="spots" class="card hidden">
+      <h2>Spots Map</h2>
+      <p class="tiny">Tap a marker for access notes; open <b>Satellite</b> and <b>Directions</b> links.</p>
+      <div id="mapWrap"><div id="map"></div></div>
+      <div id="spotsList" class="result tiny"></div>
+    </section>
+  </main>
+
+  <!-- Entry module -->
+  <script type="module" src="logic/main.js"></script>
+</body>
+</html>
